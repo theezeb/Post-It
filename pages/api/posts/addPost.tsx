@@ -23,10 +23,12 @@ export default async function handler(
       },
     });
 
-    if (title.length >= 300)
+    if (title.length >= 300) {
       res.status(403).json({ message: "Please Write a smaller Post." });
-    if (title.length)
+    }
+    if (!title.length) {
       res.status(403).json({ message: "Please Dont't leave it empty" });
+    }
 
     try {
       const result = await prisma.post.create({
@@ -35,6 +37,9 @@ export default async function handler(
           userId: primsaUser.id,
         },
       });
-    } catch (error) {}
+      res.status(200).json({ result });
+    } catch (error) {
+      res.status(403).json({ error: "Something went wrong!!" });
+    }
   }
 }
