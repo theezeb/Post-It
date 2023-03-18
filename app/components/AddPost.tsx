@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
   let toastPostID: string;
 
   function handleChange(e: string) {
@@ -47,6 +47,7 @@ export default function CreatePost() {
   return (
     <form onSubmit={submitPost} className="bg-white my-8 p-8 rounded-md">
       <div className="flex flex-col my-4">
+          <h1>Welcome</h1>
         <textarea
           name="title"
           value={title}
