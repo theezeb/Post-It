@@ -2,16 +2,28 @@
 
 import Image from "next/image";
 import Link from "next/link";
+type ShowPosts = {
+  id: string;
+  avatar: string;
+  postTitle: string;
+  name: string;
+  title: string;
+  date: string;
+  comments?: {
+    id: string;
+    postId: string;
+    userId: string;
+  }[];
+};
 
 export default function Post({
   avatar,
   postTitle,
   name,
-  image,
   id,
   date,
   comments,
-}) {
+}: ShowPosts) {
   return (
     <div className="bg-white my-5 p-7 rounded-lg">
       <div className="flex items-center gap-2 space-x-80">

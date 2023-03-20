@@ -12,6 +12,7 @@ interface UserName {
 export default function CreatePost({ name }: UserName) {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
+  const queryClient = useQueryClient();
   let toastPostID: string;
 
   function handleChange(e: string) {
@@ -32,6 +33,7 @@ export default function CreatePost({ name }: UserName) {
       },
       onSuccess: (data) => {
         toast.success("Post has been made 🔥", { id: toastPostID });
+        queryClient.invalidateQueries(["posts"]);
         setTitle("");
         setIsDisabled(true);
       },
@@ -43,7 +45,7 @@ export default function CreatePost({ name }: UserName) {
     toastPostID = toast.loading("Creating your post", { id: toastPostID });
     setTimeout(() => {
       toast.dismiss(toastPostID);
-    }, 3500);
+    }, 1600);
     mutate(title);
     setIsDisabled(false);
   };
