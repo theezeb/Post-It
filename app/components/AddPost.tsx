@@ -5,7 +5,11 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export default function CreatePost() {
+interface UserName {
+  name: String;
+}
+
+export default function CreatePost({ name }: UserName) {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
   let toastPostID: string;
@@ -29,25 +33,25 @@ export default function CreatePost() {
       onSuccess: (data) => {
         toast.success("Post has been made 🔥", { id: toastPostID });
         setTitle("");
-        setIsDisabled(false);
+        setIsDisabled(true);
       },
     }
   );
 
   const submitPost = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsDisabled(true);
     toastPostID = toast.loading("Creating your post", { id: toastPostID });
     setTimeout(() => {
       toast.dismiss(toastPostID);
-    }, 2000);
+    }, 3500);
     mutate(title);
+    setIsDisabled(false);
   };
 
   return (
     <form onSubmit={submitPost} className="bg-white my-8 p-8 rounded-md">
       <div className="flex flex-col my-4">
-          <h1>Welcome</h1>
+        <h1>Welcome {name}</h1>
         <textarea
           name="title"
           value={title}

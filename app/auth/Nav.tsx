@@ -15,7 +15,6 @@ export default async function Nav() {
         <h2>Write it here,how was your day?? 😁</h2>
       </Link>
       <ul className="flex items-center gap-6">
-        {session?.user?.name}
         {session?.user && <Logged image={session?.user?.image || ""} />}
         {!session?.user && <Login />}
       </ul>

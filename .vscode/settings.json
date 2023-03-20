@@ -1,4 +1,9 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
+  "typescript.suggest.autoImports": true,
+  "editor.snippetSuggestions": "none",
+  "editor.wordBasedSuggestions": false,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.acceptSuggestionOnEnter": "smart",
   "typescript.enablePromptUseWorkspaceTsdk": true
 }
