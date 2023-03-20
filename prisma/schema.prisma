@@ -11,29 +11,29 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   Post          Post[]
-  Comment       Comment[]
+  Comments      Comments[]
 }
 
 model Post {
-  id        String    @id @default(cuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        String     @id @default(cuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   title     String
-  published Boolean   @default(false)
+  published Boolean    @default(false)
   userId    String
-  user      User      @relation(fields: [userId], references: [id])
-  Comment   Comment[]
+  user      User       @relation(fields: [userId], references: [id])
+  Comments  Comments[]
 }
 
-model Comment {
+model Comments {
   id        String   @id @default(cuid())
   message   String
   postId    String
@@ -42,7 +42,6 @@ model Comment {
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id])
 }
-
 
 model Account {
   id                String  @id @default(cuid())
