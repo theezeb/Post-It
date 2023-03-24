@@ -15,6 +15,7 @@ export default async function details(
         },
         include: {
           user: true,
+          hearts: true,
           Comments: {
             orderBy: {
               createdAt: "desc",

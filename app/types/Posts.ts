@@ -2,6 +2,7 @@ export type PostType = {
     title: string
     id: string
     createdAt: string
+    hearts: string
     user: {
         name: string
         image: string

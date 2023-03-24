@@ -29,7 +29,6 @@ export default function CreatePost({ name }: UserName) {
         if (error instanceof AxiosError) {
           toast.error(error?.response?.data.message, { id: toastPostID });
         }
-        setIsDisabled(false);
       },
       onSuccess: (data) => {
         toast.success("Post has been made 🔥", { id: toastPostID });

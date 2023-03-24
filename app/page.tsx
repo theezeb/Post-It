@@ -22,14 +22,14 @@ export default function Home() {
   });
 
   if (error) return error;
-  if (isLoading) return "Loading";
- 
-  let currUserName = data[0]?.user.name;
+  if (isLoading) return "Loading...";
+
+  let currUserName = data[1].name;
 
   return (
     <main>
       <AddPost name={currUserName} />
-      {data?.map((post) => (
+      {data[0]?.map((post) => (
         <Post
           key={post.id}
           name={post.user.name}
@@ -37,6 +37,8 @@ export default function Home() {
           postTitle={post.title}
           id={post.id}
           date={post.createdAt}
+          hearts={post.hearts}
+          userId={data[1].id}
           comments={post.Comments}
         />
       ))}
