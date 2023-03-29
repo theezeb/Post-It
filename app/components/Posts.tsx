@@ -35,7 +35,7 @@ export default function Post({
   comments,
 }: ShowPosts) {
   const currentUserLiked =
-    hearts.some((like) => like.userId === userId) || false;
+    hearts?.some((like) => like.userId === userId) || false;
   const queryClient = useQueryClient();
 
   let deleteLikeID: string;
@@ -97,14 +97,16 @@ export default function Post({
             </p>
           </Link>
           <button onClick={() => mutate(id)}>
-            <HeartIcon
-              className={`w-6 h-6 inline-block mr-1 ${
-                currentUserLiked
-                  ? "text-red-400 fill-current animate-pulse"
-                  : "text-black-400 animate-pulse"
-              }`}
-            />
-            <span>{hearts.length}</span>
+            {hearts ? (
+              <HeartIcon
+                className={`w-6 h-6 inline-block mr-1 ${
+                  currentUserLiked
+                    ? "text-red-400 fill-current animate-pulse"
+                    : "text-black-400 animate-pulse"
+                }`}
+              />
+            ) : null}
+            <span>{hearts && hearts.length}</span>
           </button>
         </div>
       </div>
