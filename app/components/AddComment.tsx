@@ -67,7 +67,8 @@ export default function AddComment({ id }: PostProps) {
           value={title}
           type="text"
           name="title"
-          className="p-4 text-lg rounded-md my-2"
+          placeholder="Share your opinions"
+          className="p-4 text-lg rounded-md my-2 border-solid border-2 border-gray-300"
         />
       </div>
       <div className="flex justify-between items-center gap-2">

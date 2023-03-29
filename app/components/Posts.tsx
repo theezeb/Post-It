@@ -34,7 +34,8 @@ export default function Post({
   userId,
   comments,
 }: ShowPosts) {
-  const currentUserLiked = hearts?.some((like) => like.userId === userId) || false;
+  const currentUserLiked =
+    hearts?.some((like) => like.userId === userId) || false;
   const queryClient = useQueryClient();
   let deleteLikeID: string;
 
@@ -55,6 +56,7 @@ export default function Post({
           { id: deleteLikeID }
         );
         queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["detail-post"]);
       },
     }
   );
@@ -66,22 +68,19 @@ export default function Post({
       transition={{ ease: "easeOut" }}
       key={comments?.userId}
     >
-      <div className="bg-white my-5 p-7 rounded-lg">
-        <div className="flex items-center justify-between gap-2 space-x-80">
-          <div className="relative top-4">
-            <Image
-              className="rounded-full"
-              width={32}
-              height={32}
-              src={avatar}
-              alt="avatar"
-            />
-            <div className="relative bottom-7 left-10 font-bold  text-gray-700">
-              {name}
-            </div>
+      <div className="bg-white my-5 p-5 rounded-lg border-solid border-2 border-gray-700">
+        <div className="flex items-center">
+          <Image
+            className="rounded-full"
+            width={32}
+            height={32}
+            src={avatar}
+            alt="avatar"
+          />
+          <div className=" items-centers font-bold px-2 text-gray-700">
+            {name}
           </div>
-
-          <div className="bg-gray-100  rounded-md p-1">
+          <div className="ml-auto bg-gray-200 rounded-lg py-1 px-1">
             {moment(date).format("MMMM Do YYYY, h:mm a")}
           </div>
         </div>

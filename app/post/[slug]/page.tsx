@@ -26,8 +26,8 @@ export default function PostDetail(url: URL) {
     queryFn: () => fetchDetails(url.params.slug),
   });
 
-  if (isLoading) return "isLoading...";
-  // console.log(data);
+  if (isLoading || !data) return "isLoading...";
+  console.log(data);
 
   return (
     <div>
@@ -37,32 +37,35 @@ export default function PostDetail(url: URL) {
         avatar={data.user.image}
         postTitle={data.title}
         comments={data.Comments}
+        date={data.createdAt}
+        hearts={data.hearts}
+        userId={data.userId}
       />
       <AddComment id={data.id} />
-      {data?.Comments?.map((comment) => (
+      {data?.Comments.map((comment:any) => (
         <motion.div
           animate={{ opacity: 1, scale: 1 }}
           initial={{ opacity: 0, scale: 0.8 }}
           transition={{ ease: "easeOut" }}
-          className="my-6 bg-white p-8 rounded-md"
+          className="my-6 bg-white p-8 rounded-md border-solid border-2 border-gray-700"
           key={comment.id}
         >
-          <div className="flex items-center gap-2 ">
+          <div className="flex items-center gap-4 ">
             <Image
-              width={26}
-              height={26}
+              width={30}
+              height={30}
               src={comment.user?.image}
               className="rounded-xl"
               alt="avatar"
             />
-            <div className="flex flex-col">
+            <div className="flex flex-col ">
               <h3 className="font-bold pb-2">{comment?.user?.name}</h3>
               <h2 className="text-sm bg-gray-200 rounded-md px-1">
                 {moment(comment.createdAt).format("MMMM Do YYYY")}
               </h2>
             </div>
           </div>
-          <div className="mt-9 bg-gray-300">{comment.message}</div>
+          <div className="mt-9">{comment.message}</div>
         </motion.div>
       ))}
     </div>

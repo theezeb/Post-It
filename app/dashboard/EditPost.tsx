@@ -64,7 +64,7 @@ export default function EditPost({
         transition={{ ease: "easeOut" }}
         key={comments?.userId}
       >
-        <div className="bg-white my-8 p-8 rounded-lg">
+        <div className="bg-white my-8 p-8 rounded-lg border-solid border-2 border-gray-700">
           <div className="flex items-center gap-2">
             <Image width={32} height={32} src={avatar} alt="avatar" />
             <h3 className="font-bold text-gray-700">{name}</h3>

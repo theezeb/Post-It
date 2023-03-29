@@ -4,7 +4,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
+import { Text } from "@nextui-org/react";
 interface UserName {
   name: String;
 }
@@ -50,17 +50,38 @@ export default function CreatePost({ name }: UserName) {
   };
 
   return (
-    <form onSubmit={submitPost} className="bg-white my-8 p-8 rounded-md">
-      <div className="flex flex-col my-4">
-        <h1>Welcome {name}</h1>
+    <form
+      onSubmit={submitPost}
+      className={`${
+        !name ? "cursor-not-allowed " : "cursor-default "
+      }bg-white my-4 p-6 rounded-md border-solid border-2 border-gray-700`}
+    >
+      <div className="flex flex-col my-1">
+        <Text
+          h1
+          size={30}
+          css={{
+            textGradient: "45deg, $blue700 -20%, $pink600 50%",
+          }}
+          weight="bold"
+        >
+          {!name ? "Please Sign-in to Post!!" : `Welcome ${name}`}
+        </Text>
         <textarea
           name="title"
           value={title}
           onChange={(e) => {
             handleChange(e.target.value);
           }}
-          placeholder="Write down your thoughts here. 😀"
-          className="p-4 text-lg rounded-md my-2 bg-gray-200"
+          placeholder={`${
+            !name
+              ? "Oops looks like you can type in here 😜😲"
+              : "Write down your thoughts here. 😀"
+          }`}
+          className={`${
+            !name ? "cursor-not-allowed" : "cursor-text"
+          } p-4 text-lg rounded-md my-2 bg-gray-200 border-solid border-2 border-gray-400`}
+          disabled={!name}
         ></textarea>
       </div>
       <div className="flex items-center justify-between gap-2">
