@@ -27,7 +27,7 @@ export default function PostDetail(url: URL) {
   });
 
   if (isLoading || !data) return "isLoading...";
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>
