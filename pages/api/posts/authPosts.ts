@@ -10,12 +10,11 @@ export default async function handler(
   if (req.method === "GET") {
     const session = await getServerSession(req, res, authOptions);
     if (!session) return res.status(401).json({ message: "Please Sign In!!" });
-
     //Get all user Posts
     try {
       const data = await prisma.user.findUnique({
         where: {
-          email: session.user?.email,
+          email: session?.user?.email,
         },
         include: {
           Post: {

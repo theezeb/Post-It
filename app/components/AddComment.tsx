@@ -4,7 +4,6 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { PostType } from "./types/Post";
 
 type Comment = {
   postId?: string;
@@ -17,7 +16,13 @@ export default function AddComment({ id }: PostProps) {
   let commentToastId: string;
   console.log(id);
   const [title, setTitle] = useState("");
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  function handleChange(e: string) {
+    if (e.length >= 301) return;
+    e.length ? setIsDisabled(false) : setIsDisabled(true);
+    setTitle(e);
+  }
 
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
@@ -58,17 +63,17 @@ export default function AddComment({ id }: PostProps) {
 
       <div className="flex flex-col my-2">
         <input
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => handleChange(e.target.value)}
           value={title}
           type="text"
           name="title"
           className="p-4 text-lg rounded-md my-2"
         />
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex justify-between items-center gap-2">
         <button
           disabled={isDisabled}
-          className=" text-sm bg-teal-600 text-white py-2 px-6 rounded-xl disabled:opacity-25"
+          className="text-sm bg-teal-600 text-white py-2 px-4 rounded-xl disabled:opacity-25"
           type="submit"
         >
           Add Comment 🚀

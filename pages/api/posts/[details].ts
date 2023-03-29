@@ -7,7 +7,7 @@ export default async function details(
 ) {
   if (req.method === "GET") {
     try {
-      console.log(req.query);
+      // console.log(req.query);
 
       const data = await prisma.post.findUnique({
         where: {

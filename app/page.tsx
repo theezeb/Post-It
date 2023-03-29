@@ -4,32 +4,44 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import AddPost from "./components/AddPost";
 import Post from "./components/Posts";
+import { AuthPosts } from "./types/AuthPosts";
 import { PostType } from "./types/Posts";
 
-type Data = {
-  data: Array<any>;
-};
 //fetch all posts
-const allPosts = async () => {
+const fetchAllPosts = async () => {
   const response = await axios.get("/api/posts/getPosts");
   return response.data;
 };
 
+const fetchCurrentUser = async () => {
+  const res = await axios.get("/api/posts/getCurrentUser");
+  return res.data;
+};
+
 export default function Home() {
-  const { data, error, isLoading } = useQuery<PostType[], Data>({
-    queryFn: allPosts,
-    queryKey: ["posts"],
-  });
+  const queryMultiple = () => {
+    const res1 = useQuery<PostType>({
+      queryFn: fetchAllPosts,
+      queryKey: ["posts"],
+    });
+    const res2 = useQuery<AuthPosts>({
+      queryFn: fetchCurrentUser,
+      queryKey: ["auth-posts"],
+    });
+    return [res1, res2];
+  };
 
+  const [{ isLoading, data, error }, { data: userData, error: userError }] =
+    queryMultiple();
+    
   if (error) return error;
-  if (isLoading) return "Loading...";
-
-  let currUserName = data[1].name;
+  if (userError) return userError;
+  if (isLoading || !data || !userData) return "Loading...";
 
   return (
     <main>
-      <AddPost name={currUserName} />
-      {data[0]?.map((post) => (
+      <AddPost name={userData ? userData?.name : ""} />
+      {data.map((post: any) => (
         <Post
           key={post.id}
           name={post.user.name}
@@ -38,7 +50,7 @@ export default function Home() {
           id={post.id}
           date={post.createdAt}
           hearts={post.hearts}
-          userId={data[1].id}
+          userId={userData.id}
           comments={post.Comments}
         />
       ))}
